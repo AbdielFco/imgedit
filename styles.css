@@ -1,60 +1,51 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const imageInput = document.getElementById("imageInput");
-    const editedImage = document.getElementById("editedImage");
-    const filterSliders = document.querySelectorAll(".filter-slider");
-    const applyFiltersButton = document.getElementById("applyFilters");
-    const saveImageButton = document.getElementById("saveImage");
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+  
+  .editor {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+  }
+  
+  .image-container {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+  }
+  
+  .image-container img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .controls {
+    margin-top: 20px;
+  }
+  
+  button {
+    margin-top: 10px;
+  }
+  
+  /* Your existing CSS */
 
-    let currentImage = null;
-
-    imageInput.addEventListener("change", function(e) {
-      const file = e.target.files[0];
-      if (file && (file.type === "image/jpeg" || file.type === "image/png")) {
-        currentImage = URL.createObjectURL(file);
-        editedImage.src = currentImage;
-      } else {
-        alert("Invalid file format. Please select a valid image (JPEG or PNG).");
-      }
-    });
-
-    applyFiltersButton.addEventListener("click", applyFilters);
-
-    filterSliders.forEach(slider => {
-      slider.addEventListener("input", function() {
-        applyFilters();
-      });
-    });
-
-    saveImageButton.addEventListener("click", function() {
-      if (currentImage) {
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-        canvas.width = editedImage.naturalWidth;
-        canvas.height = editedImage.naturalHeight;
-        ctx.filter = getFilterValue();
-        ctx.drawImage(editedImage, 0, 0, canvas.width, canvas.height);
-
-        const link = document.createElement("a");
-        link.href = canvas.toDataURL("image/jpeg");
-        link.download = "edited_image.jpg";
-        link.click();
-      }
-    });
-
-    function applyFilters() {
-      if (currentImage) {
-        const filterValue = getFilterValue();
-        editedImage.style.filter = filterValue;
-      }
-    }
-
-    function getFilterValue() {
-      let filters = "";
-      filterSliders.forEach(slider => {
-        const filterName = slider.id;
-        const filterValue = slider.value;
-        filters += `${filterName}(${filterValue}${filterName === "temperature" ? "%" : ""}) `;
-      });
-      return filters;
-    }
-});
+  .control-group {
+    margin-top: 10px;
+  }
+  
+  .control-group label {
+    display: block;
+  }
+  
+  /* Your existing CSS */
