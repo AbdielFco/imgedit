@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", function() {
         const ctx = canvas.getContext("2d");
         canvas.width = editedImage.width;
         canvas.height = editedImage.height;
-
         ctx.filter = getFilterValue();
         ctx.drawImage(editedImage, 0, 0, canvas.width, canvas.height);
 
@@ -37,15 +36,6 @@ document.addEventListener("DOMContentLoaded", function() {
       if (currentImage) {
         const filterValue = getFilterValue();
         editedImage.style.filter = filterValue;
-        editedImage.onload = function() {
-          const canvas = document.createElement("canvas");
-          canvas.width = editedImage.width;
-          canvas.height = editedImage.height;
-          const ctx = canvas.getContext("2d");
-          ctx.filter = filterValue;
-          ctx.drawImage(editedImage, 0, 0, canvas.width, canvas.height);
-          editedImage.src = canvas.toDataURL("image/jpeg");
-        };
       }
     }
 
