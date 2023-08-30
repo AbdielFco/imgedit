@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const temperatureInput = document.getElementById("temperature");
     const saturationInput = document.getElementById("saturation");
     const applyFiltersButton = document.getElementById("applyFilters");
-    const cropImageButton = document.getElementById("cropImage");
     const saveImageButton = document.getElementById("saveImage");
   
     let originalImage = null;
@@ -20,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   
     applyFiltersButton.addEventListener("click", applyFilters);
-    cropImageButton.addEventListener("click", cropImage);
   
     saveImageButton.addEventListener("click", function() {
       if (currentImage) {
@@ -48,25 +46,4 @@ document.addEventListener("DOMContentLoaded", function() {
         editedImage.style.filter = `brightness(${brightnessValue}%) contrast(${contrastValue}%) sepia(${temperatureValue}%) saturate(${saturationValue}%)`;
       }
     }
-  
-    function cropImage() {
-      if (currentImage) {
-        const container = document.querySelector(".image-container");
-        const scaleX = originalImage.width / container.offsetWidth;
-        const scaleY = originalImage.height / container.offsetHeight;
-  
-        const cropX = (container.offsetWidth - editedImage.width) / 2;
-        const cropY = (container.offsetHeight - editedImage.height) / 2;
-  
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-        canvas.width = container.offsetWidth;
-        canvas.height = container.offsetHeight;
-  
-        ctx.drawImage(editedImage, cropX * scaleX, cropY * scaleY, editedImage.width, editedImage.height);
-  
-        editedImage.src = canvas.toDataURL("image/jpeg");
-        currentImage = canvas.toDataURL("image/jpeg");
-      }
-    }
-  });
+});
