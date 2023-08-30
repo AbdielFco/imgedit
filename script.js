@@ -49,12 +49,11 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function getFilterValue() {
-      let filters = "";
-      filterSliders.forEach(slider => {
-        const filterName = slider.id;
-        const filterValue = slider.value;
-        filters += `${filterName}(${filterValue}${filterName === "temperature" ? "%" : ""}) `;
-      });
-      return filters;
+      const brightnessValue = document.getElementById("brightness").value;
+      const contrastValue = document.getElementById("contrast").value;
+      const temperatureValue = document.getElementById("temperature").value;
+      const saturationValue = document.getElementById("saturation").value;
+
+      return `brightness(${brightnessValue}%) contrast(${contrastValue}%) sepia(${temperatureValue}%) saturate(${saturationValue}%)`;
     }
 });
