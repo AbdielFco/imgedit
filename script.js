@@ -22,7 +22,8 @@ document.addEventListener("DOMContentLoaded", function() {
         const ctx = canvas.getContext("2d");
         canvas.width = editedImage.width;
         canvas.height = editedImage.height;
-        ctx.filter = editedImage.style.filter;
+
+        ctx.filter = getFilterValue();
         ctx.drawImage(editedImage, 0, 0, canvas.width, canvas.height);
 
         const link = document.createElement("a");
@@ -34,14 +35,27 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function applyFilters() {
       if (currentImage) {
-        let filters = "";
-        filterSliders.forEach(slider => {
-          const filterName = slider.id;
-          const filterValue = slider.value;
-          filters += `${filterName}(${filterValue}${filterName === "temperature" ? "%" : ""}) `;
-        });
-
-        editedImage.style.filter = filters;
+        const filterValue = getFilterValue();
+        editedImage.style.filter = filterValue;
+        editedImage.onload = function() {
+          const canvas = document.createElement("canvas");
+          canvas.width = editedImage.width;
+          canvas.height = editedImage.height;
+          const ctx = canvas.getContext("2d");
+          ctx.filter = filterValue;
+          ctx.drawImage(editedImage, 0, 0, canvas.width, canvas.height);
+          editedImage.src = canvas.toDataURL("image/jpeg");
+        };
       }
+    }
+
+    function getFilterValue() {
+      let filters = "";
+      filterSliders.forEach(slider => {
+        const filterName = slider.id;
+        const filterValue = slider.value;
+        filters += `${filterName}(${filterValue}${filterName === "temperature" ? "%" : ""}) `;
+      });
+      return filters;
     }
 });
