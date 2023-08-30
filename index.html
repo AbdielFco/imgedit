@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Editor</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="editor">
+    <div class="image-container">
+      <img id="editedImage" alt="Edited Image">
+    </div>
+    <input type="file" id="imageInput">
+    <div class="controls">
+      <div class="control-group">
+        <label for="brightness">Brightness</label>
+        <input type="range" id="brightness" min="0" max="200" value="100">
+      </div>
+      <div class="control-group">
+        <label for="contrast">Contrast</label>
+        <input type="range" id="contrast" min="0" max="200" value="100">
+      </div>
+      <div class="control-group">
+        <label for="temperature">Temperature</label>
+        <input type="range" id="temperature" min="-100" max="100" value="0">
+      </div>
+      <div class="control-group">
+        <label for="saturation">Saturation</label>
+        <input type="range" id="saturation" min="0" max="200" value="100">
+      </div>
+    </div>
+    <button id="applyFilters">Apply Filters</button>
+    <button id="cropImage">Crop Image</button>
+    <button id="saveImage">Save Image</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
