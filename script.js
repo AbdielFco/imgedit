@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const imageInput = document.getElementById("imageInput");
     const editedImage = document.getElementById("editedImage");
     const filterSliders = document.querySelectorAll(".filter-slider");
+    const applyFiltersButton = document.getElementById("applyFilters");
     const saveImageButton = document.getElementById("saveImage");
 
     let currentImage = null;
@@ -12,16 +13,20 @@ document.addEventListener("DOMContentLoaded", function() {
       editedImage.src = currentImage;
     });
 
+    applyFiltersButton.addEventListener("click", applyFilters);
+
     filterSliders.forEach(slider => {
-      slider.addEventListener("input", applyFilters);
+      slider.addEventListener("input", function() {
+        applyFilters();
+      });
     });
 
     saveImageButton.addEventListener("click", function() {
       if (currentImage) {
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
-        canvas.width = editedImage.width;
-        canvas.height = editedImage.height;
+        canvas.width = editedImage.naturalWidth;
+        canvas.height = editedImage.naturalHeight;
         ctx.filter = getFilterValue();
         ctx.drawImage(editedImage, 0, 0, canvas.width, canvas.height);
 
