@@ -9,8 +9,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     imageInput.addEventListener("change", function(e) {
       const file = e.target.files[0];
-      currentImage = URL.createObjectURL(file);
-      editedImage.src = currentImage;
+      if (file && (file.type === "image/jpeg" || file.type === "image/png")) {
+        currentImage = URL.createObjectURL(file);
+        editedImage.src = currentImage;
+      } else {
+        alert("Invalid file format. Please select a valid image (JPEG or PNG).");
+      }
     });
 
     applyFiltersButton.addEventListener("click", applyFilters);
